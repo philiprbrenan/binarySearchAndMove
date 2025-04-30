@@ -1,4 +1,4 @@
-# Test 2025-04-30 at 22:29:46
+# Test 2025-04-30 at 22:31:51
 
 name: Test
 run-name: binarySearchAndMove
@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        task: [pushToGitHub]
+        task: [BinarySearch, Move, Test]
 
     steps:
     - uses: actions/checkout@v4
@@ -45,8 +45,20 @@ jobs:
       run: |
         javac -g -d Classes -cp Classes com/AppaApps/Silicon/*.java
 
-    - name: Test pushToGitHub
-      if: matrix.task == 'pushToGitHub'
+    - name: Test BinarySearch
+      if: matrix.task == 'BinarySearch'
       run: |
-        java -cp Classes com/AppaApps/Silicon/pushToGitHub
+        java -cp Classes com/AppaApps/Silicon/BinarySearch
+
+
+    - name: Test Move
+      if: matrix.task == 'Move'
+      run: |
+        java -cp Classes com/AppaApps/Silicon/Move
+
+
+    - name: Test Test
+      if: matrix.task == 'Test'
+      run: |
+        java -cp Classes com/AppaApps/Silicon/Test
 
