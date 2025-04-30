@@ -1,4 +1,4 @@
-# Test 2025-04-30 at 22:18:58
+# Test 2025-04-30 at 22:20:44
 
 name: Test
 run-name: binarySearchAndMove
@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        task: []
+        task: [/home/phil/z/java/binarySearch/BinarySearch.java, /home/phil/z/java/binarySearch/Move.java, /home/phil/z/java/binarySearch/Test.java]
 
     steps:
     - uses: actions/checkout@v4
@@ -44,3 +44,21 @@ jobs:
     - name: Java
       run: |
         javac -g -d Classes -cp Classes com/AppaApps/Silicon/*.java
+
+    - name: Test /home/phil/z/java/binarySearch/BinarySearch.java
+      if: matrix.task == '/home/phil/z/java/binarySearch/BinarySearch.java'
+      run: |
+        java -cp Classes com/AppaApps/Silicon//home/phil/z/java/binarySearch/BinarySearch.java
+
+
+    - name: Test /home/phil/z/java/binarySearch/Move.java
+      if: matrix.task == '/home/phil/z/java/binarySearch/Move.java'
+      run: |
+        java -cp Classes com/AppaApps/Silicon//home/phil/z/java/binarySearch/Move.java
+
+
+    - name: Test /home/phil/z/java/binarySearch/Test.java
+      if: matrix.task == '/home/phil/z/java/binarySearch/Test.java'
+      run: |
+        java -cp Classes com/AppaApps/Silicon//home/phil/z/java/binarySearch/Test.java
+
