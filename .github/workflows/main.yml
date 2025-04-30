@@ -1,0 +1,46 @@
+# Test 2025-04-30 at 22:18:58
+
+name: Test
+run-name: binarySearchAndMove
+
+on:
+  push:
+    paths:
+      - '**/main.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  test:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        task: []
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: 'main'
+
+    - name: 'JDK 24'
+      uses: oracle-actions/setup-java@v1
+      with:
+        website: jdk.java.net
+
+    - name: Java release
+      run: |
+        java -version
+
+    - name: Position files in package
+      run: |
+        mkdir -p com/AppaApps/Silicon
+        cp *.java com/AppaApps/Silicon
+
+    - name: Java
+      run: |
+        javac -g -d Classes -cp Classes com/AppaApps/Silicon/*.java
