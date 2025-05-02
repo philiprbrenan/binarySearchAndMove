@@ -12,17 +12,16 @@ class BinarySearch extends Test                                                 
   int[]Array = {0, 0, 0, 0, 0,  0,  0,  0};                                     // Array to check which must have unique values and at least one element
   int index;                                                                    // Index of element found if found
   boolean found;                                                                // Whether the  element was foundf
-  final int N = 7;                                                              // Width of move
 
   void find(int find)                                                           // Find this value using an initial block of this power of two
    {found = false;
-    int p = 0;
-    int q = powerTwo(N);
+    int p = 0, q = array.length;
 
-    for (int i = 0; i <= N; ++i)
-     {final int m = (p + q) >> 1;
-      if (m < array.length) found = found || find == array[m];
-      if (m >= array.length || find < array[m]) q = m; else p = m;
+    for (int i = 0; i <= array.length; ++i)                                     // Search array
+     {final int     m = (p + q) >> 1;                                           // Middle point
+      final boolean r = m < array.length;                                       // In array range
+      if (r) found = found || find == array[m];                                 // Testable element
+      if (!r || find < array[m]) q = m; else p = m;                             // Adjust range
      }
     index = found ? p : q;                                                      // The index of the containing slice
    }
