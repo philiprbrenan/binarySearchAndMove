@@ -20,33 +20,27 @@ class Move extends Test                                                         
     for (int i = 0; i < N; i++) array[i] = i;
    }
 
-  void moveUp(int at)                                                           // Move up one out of this index
-   {final int A = array.length-1;
-    int p = A, q = nextPowerOfTwo(p);
-    for (int i = 0; i <= A; ++i) Array[i] = array[i];                           // Copy the source array - a single step
+  void moveUp(final int at)                                                     // Move up one out of this index
+   {for (int i = 0; i < array.length; ++i) Array[i] = array[i];                 // Copy the source array - a single step
 
-    for (int i = 0; i < N; ++i)
-     {ok(q, nextPowerOfTwo(q));                                                 // Always a power of two which makes it possible to create switch on the log
-      if (p - q >= at)
-       {for (int j = p - q; j < p; ++j) array[j+1] = Array[j];
-        p -= q;
+    for (int p = at, q = nextPowerOfTwo(array.length); q > 0; q >>= 1)
+     {ok(q, nextPowerOfTwo(q));                                                 // Always a power of two which makes it possible to switch on the log thereof
+      if (p + q < array.length)
+       {System.arraycopy(Array, p, array, p+1, q);
+        p += q;
        }
-      q >>= 1; if (q == 0) break;
      }
    }
 
-  void moveDown(int at)                                                         // Move down one into this index
-   {final int A = array.length-1;
-    int p = A, q = nextPowerOfTwo(p);
-    for (int i = 0; i <= A; ++i) Array[i] = array[i];                           // Copy the source array - a single step
+  void moveDown(final int at)                                                   // Move down one into this index
+   {for (int i = 0; i < array.length; ++i) Array[i] = array[i];                 // Copy the source array - a single step
 
-    for (int i = 0; i < N; ++i)
-     {ok(q, nextPowerOfTwo(q));                                                 // Always a power of two which makes it possible to create switch on the log
-      if (p - q >= at)
-       {for (int j = p - q; j < p; ++j) array[j] = Array[j+1];
-        p -= q;
+    for (int p = at, q = nextPowerOfTwo(array.length); q > 0; q >>= 1)
+     {ok(q, nextPowerOfTwo(q));                                                 // Always a power of two which makes it possible to switch on the log thereof
+      if (p + q < array.length)
+       {System.arraycopy(Array, p+1, array, p, q);
+        p += q;
        }
-      q >>= 1; if (q == 0) break;
      }
    }
 
