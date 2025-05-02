@@ -11,7 +11,7 @@ use Data::Dump qw(dump);
 use Data::Table::Text qw(:all);
 use GitHub::Crud qw(:all);
 
-my $home    = q(/home/phil/z/java/binarySearch);                                # Home folder
+my $home    = q(/home/phil/z/java/binarySearch/);                                # Home folder
 my $md5File = fpf $home, qw(.md5Sums);                                          # Md5 file sums for each known file to detect changes
 my $user    = q(philiprbrenan);                                                 # User
 my $repo    = q(binarySearchAndMove);                                           # Repo
@@ -21,8 +21,7 @@ my @jx      = qw(.java);                                                        
 
 say STDERR timeStamp,  " push to github $repo";
 
-my @files = searchDirectoryTreesForMatchingFiles($home, @ext);                         # Files of interest
-say STDERR "AAAA ", dump(\@files);
+my @files = searchDirectoryTreesForMatchingFiles($home, @ext);                  # Files of interest
    @files = changedFiles $md5File, @files;                                      # Filter out files that have not changed
 
 if (!@files)                                                                    # No new files
@@ -43,7 +42,8 @@ if  (1)                                                                         
  }
 
 if (1)                                                                          # Write workflow
- {my @j = changedFiles $md5File, searchDirectoryTreesForMatchingFiles($home, @jx); # Java files
+ {my @j = searchDirectoryTreesForMatchingFiles($home, @jx);                     # Java files
+     @j = map {fn $_} @j;                                                       # Java class names
 
   my $d = dateTimeStamp;
   my $c = q(com/AppaApps/Silicon);                                              # Package to classes folder
